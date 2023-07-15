@@ -1,0 +1,85 @@
+---
+title: 学习Git
+description: Git learning
+authors: bear
+date: 2023-07-15T10:00
+tags: [Git]
+image: https://s2.loli.net/2023/07/15/cwH2OBANpZXLmTM.png
+hide_table_of_contents: false
+---
+
+:::tip 
+
+此文章是根据Git Pro来写的，仅记录Git Pro上的小标题和里面的内容总结，方便我后续查找内容，小标题都链接到了Git Pro上对应的章节
+
+:::
+
+## 一、Git起步
+### [1.1 Git是什么](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F)
+1. Git与其他VCS的区别
+2. Git近乎所有操作都是本地执行
+3. Git 保证完整性（Git所有数据在存储前都计算校验和）
+4. Git 一般只添加数据
+5. **Git的三种状态**
+
+### [1.2 Git安装](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)
+
+### [1.3 Git的初步配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE)
+1. Git的三种配置文件
+    + /etc/gitconfig文件，包含系统上每一个用户及他们仓库的通用配置。
+    + ~/.gitconfig 或 ~/.config/git/config 文件，只针对当前用户。
+    + 当前使用仓库的 Git 目录中的 config 文件（即 .git/config）：针对该仓库。
+```shell title='可以通过下面的命令来查看配置文件的位置'
+$ git config --list --show-origin
+```
+2. 用户信息配置
+```shell
+$ git config --global user.name "BearProfessor"
+$ git config --global user.email bear_professor@outlook.com
+```
+3. 文本编辑器配置
+```shell
+git config --global core.editor "code --wait"
+```
+上面是VsCode的例子，[**其他文本编辑器**](https://git-scm.com/book/zh/v2/%E9%99%84%E5%BD%95-C%3A-Git-%E5%91%BD%E4%BB%A4-%E8%AE%BE%E7%BD%AE%E4%B8%8E%E9%85%8D%E7%BD%AE#ch_core_editor)
+
+4. 检查配置信息
+```shell
+git config --list
+```
+
+### [1.4 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9)
+```shell
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+
+#如果不需要全面的手册，可以只用 -h 来获取更加简明的help
+$ git <verb> -h
+```
+
+## 二、Git基础
+### [2.1 获取Git仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93)
+
+通常有两种获取 Git 项目仓库的方式：
+1. 将尚未进行版本控制的本地目录转换为 Git 仓库；
+2. 从其它服务器克隆一个已存在的 Git 仓库。
+两种方式都会在你的本地机器上得到一个工作就绪的 Git 仓库。
+
+**在已存在目录中初始化仓库**
+```shell
+#首先需要进入该项目目录中
+#然后初始化
+$ git init #会创建.git目录
+#最后追踪文件并提交
+$ git add *.c
+$ git add LICENSE
+$ git commit -m 'initial project version'
+```
+**克隆现有的仓库**
+```shell
+#这会在当前目录下创建一个名为 “libgit2” 的目录，并在这个目录下初始化一个 .git 文件夹
+$ git clone https://github.com/libgit2/libgit2
+#想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+```
