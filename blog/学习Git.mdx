@@ -140,12 +140,16 @@ git commit -a
 
 9. 移除文件
 ```shell
-#git rm命令会把文件从暂存区中移除
-#然后再在目录中手动删除该文件，就可以真的删除此文件了
+#先删除该文件
+#然后在调用git rm命令
 git rm <file>
 #若是想要保留该文件在工作目录中
 git rm --cached <file>
 #若是想要强制删除
 git rm -f <file>
+```
 
+10. 移动文件
+```shell
+git mv <oldfile> <newfile>
 ```
