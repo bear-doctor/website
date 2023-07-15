@@ -245,8 +245,10 @@ git checkout  --<file>
 ```shell
 #列出每一个远程仓库的简写
 git remote
-#列出远程仓库的详细信息
+#列出所有远程仓库的信息
 git remote -v
+#详细地列出某一个特定的仓库的详细信息
+git remote show <remote>
 ```
 > 若是克隆远程仓库，其仓库简写默认为`origin`，默认情况下，`git clone` 命令会自动设置本地 `master`分支跟踪克隆的远程仓库的 `master` 分支（或其它名字的默认分支
 
@@ -300,3 +302,70 @@ git tag -a <tag> -m "message"
 git tag -a v1.0 -m "version 1"
 #查看附注标签的具体信息
 git show <tag>
+#会显示标签信息和提交信息
+```
+
+```shell title="轻量标签"
+#不需要任何选项
+git tag <tag>
+#git show 不会显示任何标签信息
+```
+
+3. 后期打标签
+```shell
+#给以前的提交记录打标签
+git tag -a <tag> checkout
+#checkout是以前的提交记录的校验和，可以是一部分
+```
+
+4. 共享标签
+```shell
+#git push时并不会将标签一同推送，需要显式地指定
+git push <remote> <tagname>
+#例子
+git push origin v1.5
+#想要一次性将所有标签全部推送
+git push origin --tags
+```
+
+5. 删除标签
+```shell
+#删除本地标签
+git tag -d <tag>
+#删除远程仓库的标签
+#第一种写法
+git push <remote> :refs/tags/<tagname>
+#第二种写法
+git push <remote> --delete <tagname>
+```
+
+6. 检出标签
+```shell
+git checkout <tagname>
+```
+:::danger 注意
+
+这里会造成”分离头指针”的状态，这个状态有些不好的副作用
+
+:::
+
+### [2.7 别名](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-Git-%E5%88%AB%E5%90%8D)
+可以用`git config`文件来配置别名
+```shell
+#例子
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+
+#别名的范围可以更大一些
+$ git config --global alias.unstage 'reset HEAD --'
+#这使得下面两个命令等价
+$ git unstage fileA
+$ git reset HEAD -- fileA
+```
+上面是给Git子命令添加别名，也可以给外部命令添加别名，这需要在命令前加上**“!”** 
+```shell
+$ git config --global alias.visual '!gitk'
+#git gitk 是 git visual 的别名
+``` 
