@@ -72,6 +72,7 @@ $ git <verb> -h
 #然后初始化
 $ git init #会创建.git目录
 #最后追踪文件并提交
+#git add <path>
 $ git add *.c
 $ git add LICENSE
 $ git commit -m 'initial project version'
@@ -83,3 +84,26 @@ $ git clone https://github.com/libgit2/libgit2
 #想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名
 $ git clone https://github.com/libgit2/libgit2 mylibgit
 ```
+
+### [2.2 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)
+1. 检查当前文件状态
+```shell
+git status
+```
+2. 添加新的文件
+```shell
+git add <file>
+#其中 <file> 可以是文件或者目录的路径，若是目录，则会递归地添加该目录下所有文件
+```
+3. 暂存已修改的文件
+```shell
+git add <file>
+```
+4. 状态简览
+```shell
+git status -s
+```
+5. 忽略文件
+
+一般使用`.gitignore`文件来指定要忽略哪些文件，忽略了文件之后，文件就不属于Git管理，也不会出现在未跟踪文件的列表中。`.gitignore`文件详情看Git Pro
+6.
