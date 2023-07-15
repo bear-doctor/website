@@ -156,3 +156,147 @@ git mv <oldfile> <newfile>
 ```
 
 ### [2.3 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+1. 基本的查看命令
+```shell
+git log
+```
+`git log`命令后面可以跟分支，[**详情看Table2**](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+
+2. 限制输出的记录的条数
+```shell
+#输出两条最近的记录
+git log -2
+```
+
+3. 查看每次提交记录的差异
+```shell
+git log -p 
+#或者
+git log --patch
+```
+
+4. 查看提交的简略信息
+```shell
+git log --stat
+```
+
+5. 使用不同的格式来展示提交信息
+```shell
+#以一行显示
+git log --pretty=oneline
+#自定义格式
+git log --pretty=format:"%h - %an %ar %s"
+#%h 是展示简略的哈希值
+#%an 是展示作者的名字
+#%ar 是作者最后的修改时间
+#%s 是提交说明
+```
+还有一些格式化选项和format后面的值，[**详情看Table1**](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+
+6. 用ASCII图来展示分支与合并分支
+```shell
+git log --graph
+```
+
+7. 限制输出的长度
+```shell
+#显示最近的两条提交
+git log -2
+#显示在某时间之后的提交
+git log --after 2023-07-15
+#显示作者是某人的提交
+git log --author BearProfessor
+#显示说明文字包含指定字符串的提交
+git log --grep "commit"
+```
+还有可以选择的值，[**详情看Table3**](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+
+8. 隐藏合并提交
+```shell
+git log --no-merges
+```
+
+### [2.4 撤销操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C)
+1. 修改上一次的提交
+
+假如上一次提交以来，还未修改（是指修改提交记录，而不是工作区或暂存区的内容），就可以用这个命令
+```shell
+git commit -m "BearProfessor"
+git add test.mdx
+git commit --amend
+```
+> 在这个命令调用之后，会打开默认的文本编辑器，可以在里面修改提交信息
+
+2. 取消暂存的文件
+```shell
+git reset <file>
+#调用这个命令之后，文件会回到未跟踪状态
+```
+
+3. 撤销对于文件的修改
+```shell
+git checkout  --<file>
+```
+> 这是一个很危险的命令，因为对于该文件的所有本地修改都会消失。
+> 如果想保留修改，但仍然想撤销，可以用分支技术
+
+### [2.5 远程仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8)
+1. 查看远程仓库
+```shell
+#列出每一个远程仓库的简写
+git remote
+#列出远程仓库的详细信息
+git remote -v
+```
+> 若是克隆远程仓库，其仓库简写默认为`origin`，默认情况下，`git clone` 命令会自动设置本地 `master`分支跟踪克隆的远程仓库的 `master` 分支（或其它名字的默认分支
+
+2. 添加远程仓库
+```shell
+git remote add 别名 url
+#例子
+git remote add bearprofessor https://github.com/bear-doctor/website.git
+```
+
+3. 从远程仓库中抓取和拉取
+```shell
+#抓取
+git fetch <remote>
+#这个命令会访问远程仓库，从中拉取所有你还没有的数据。执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。
+git pull
+#自动抓取后合并该远程分支到当前分支
+```
+
+4. 推送到远程仓库
+```shell
+git push <remote> <branch>
+#把<branch>推送到远程仓库<remote>中
+```
+
+5. 远程仓库的重命名和移除
+```shell
+#重命名
+git remote rename <old> <new>
+#移除
+git remote remove <repository>
+```
+
+### [2.6 给提交记录打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE)
+1. 列出标签
+```shell
+#列出所有标签
+git tag
+#根据指定匹配规则列出标签
+git tag --list "通配规则"   
+#例子
+git tag --list "v1.85*"
+```
+
+2. 创建标签
+有两种标签：轻量标签和附注标签，轻量标签像是一个引用，而附注标签拥有更多信息，如标签什么时候签的，打标签的人是谁
+```shell title="附注标签"
+#用 -a 即可创建附注标签， -m 是指定存储在标签里的信息
+git tag -a <tag> -m "message"
+#例子
+git tag -a v1.0 -m "version 1"
+#查看附注标签的具体信息
+git show <tag>
