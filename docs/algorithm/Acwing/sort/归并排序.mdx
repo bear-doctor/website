@@ -1,0 +1,40 @@
+---
+title: 归并排序
+---
+
+[**Acwing链接**](https://www.acwing.com/problem/content/789/)
+
+归并排序的思路：
+1. 先选分界点
+2. 递归地将分界点左右两侧的数据进行归并排序
+3. 将已经排好序的左右两侧数据进行归并排序
+
+这个思路的关键在于：如何将左右两侧有序的数据进行归并，这里开辟了另一块空间（temp）来辅助归并。
+
+归并的思路是：有两个游标 i 和 j。起初，i 指向左侧第一个元素，j 指向右侧第一个元素，然后比较a[i]和a[j]，假设a[i] < a[j]，此时应将a[i]放入temp中，然后向后移动游标 i。
+
+```cpp
+void merge_sort(int q[], int l, int r){
+    if(l == r) return;
+    
+    //确定分界点
+    int mid = l+r>>1;
+    
+    //递归排序左右边
+    merge_sort(q, l, mid);
+    merge_sort(q, mid+1, r);
+    
+    //将最后两个排好序的归并
+    int i = l, j = mid+1, k = 0;
+    while(i<=mid && j<=r){
+        if(q[i] < q[j]) temp[k++] = q[i++];
+        else temp[k++] = q[j++];
+    }
+    while(i<=mid) temp[k++] = q[i++];
+    while(j<=r) temp[k++] = q[j++];
+    //将temp的内容复制到q中
+    for(int i=l, k=0; i<=r; i++, k++){
+        q[i] = temp[k];
+    }
+}
+```

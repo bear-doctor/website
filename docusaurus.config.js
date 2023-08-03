@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/银河护卫队-浣熊火箭.svg',
 
   // Set the production url of your site here
-  url: 'http://localhost:3000',
+  url: 'https://bearprofessor.vercel.app/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -64,7 +64,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/weini.svg',
 
       tableOfContents: {
         minHeadingLevel: 2,
@@ -79,12 +79,24 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'doc',
+            docId: 'intro',
+            sidebarId: 'knowledge',
             position: 'left',
             label: '知识大门',
           },
+          {
+            type: 'doc',
+            docId: 'algorithm/intro',
+            sidebarId: 'algorithm',
+            position: 'left',
+            label: '算法',
+          },
           {to: '/blog', label: '随笔', position: 'left'},
+          {
+            type: 'search',
+            position: 'right',
+          },
         ],
       },
       footer: {
@@ -97,6 +109,14 @@ const config = {
                 label: '知识大门',
                 to: '/docs/intro',
               },
+              {
+                label: '算法',
+                to: '/docs/algorithm/intro'
+              },
+              {
+                label: '随笔',
+                to: '/blog'
+              }
             ],
           },
           {
@@ -125,7 +145,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
-        theme: require('prism-react-renderer/themes/duotoneDark')
+        theme: darkCodeTheme,
+        additionalLanguages: ['powershell','cpp','git','python'],
       },
     }),
 };
