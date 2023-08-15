@@ -1,0 +1,34 @@
+---
+title: 华氏摄氏温度互换
+description: Openjudget题目
+authors: bear
+date: 2023-08-14T22:00
+tags: [Openjudge, Python]
+image: https://s2.loli.net/2023/07/15/cwH2OBANpZXLmTM.png
+hide_table_of_contents: false
+---
+
+### 华氏摄氏温度互换
+题目是OpenJudge中的Python程序设计中的[**题目**](http://cxsjsxmooc.openjudge.cn/book/015/)
+
+代码
+```python
+s = input()
+tem = float(s[0:-1])
+# 可容忍误差
+epsilon = 1e-9
+if s[-1] in "Ff":
+    tem = (tem - 32) / 1.8
+    if abs(round(tem) - tem) <= epsilon:
+        print(f"{round(tem):d}C")
+    else:
+        print(f"{tem:.2f}C")
+else:
+    tem = tem * 1.8 + 32
+    if abs(round(tem) - tem) <= epsilon:
+        print(f"{round(tem):d}F")
+    else:
+        print(f"{tem:.2f}F")
+```
+
+记录这道题的原因在于中间的整数判断

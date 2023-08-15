@@ -71,6 +71,12 @@ const config = {
         maxHeadingLevel: 5,
       },
 
+      docs: {
+        sidebar: {
+          hideable: true
+        }
+      },
+
       navbar: {
         title: 'BearProfessor',
         logo: {
@@ -79,15 +85,15 @@ const config = {
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
+            type: 'docSidebar',
+            docid: 'intro',
             sidebarId: 'knowledge',
             position: 'left',
             label: '知识大门',
           },
           {
-            type: 'doc',
-            docId: 'algorithm/intro',
+            type: 'docSidebar',
+            docid: 'algorithm/intro',
             sidebarId: 'algorithm',
             position: 'left',
             label: '算法',

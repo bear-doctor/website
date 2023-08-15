@@ -1,3 +1,8 @@
+---
+title: 输入和输出
+sidebar_label: 输入和输出
+---
+
 ## 七、输入与输出
 前面已学习了两种写入值的方法：表达式语句 和 print() 函数。
 ### 7.1 更复杂的输出格式
@@ -51,7 +56,16 @@ format_spec       ::=  <described in the next section>
 ### 7.2 读写文件
 #### [7.2.1 open内置函数](https://docs.python.org/zh-cn/3/tutorial/inputoutput.html#reading-and-writing-files)
 1. open() 返回一个 file object ，最常使用的是两个位置参数和一个关键字参数：`open(filename, mode, encoding=None)`，[**参数详情**](https://docs.python.org/zh-cn/3/library/functions.html#open)
+2. 路径：相对路径和绝对路径，一般而言，相对路径的当前文件夹是运行程序时的当前文件夹，而在命令行中，打开命令行的文件夹就是当前的文件夹，与程序所在的文件夹不一定是同一个文件夹
+```python
+# 可以用os模块中的os.getcwd()得到程序所在文件夹
+import os
+print(os.getcwd())
+# 程序运行期间可以改变当前文件夹
+os.chdir('newfolder')
+```
 2.  通常情况下，文件是以 text mode 打开的，也就是说，你从文件中读写字符串，这些字符串是以特定的 encoding 编码的。如果没有指定 encoding ，默认的是与平台有关的。在二进制模式下打开文件时，你不能指定 encoding。
+3. 通常情况下，文本文件的编码默认是utf-8编码，为了防止文件以其他方式解码和编码，应在打开和读写的时候都指定`encoding`属性
 3. 在处理文件对象时，最好使用with关键字。优点是，子句体结束后，文件会正确关闭，即便触发异常也可以。若是没有使用with，就需要使用`f.close`。[**with详情**](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#with)
 ```python
 #以文本文件打开
